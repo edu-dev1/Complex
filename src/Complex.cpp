@@ -9,7 +9,7 @@ Complex::Complex(){
 }
 
 Complex::Complex(int n1, int d1, int n2, int d2){
-    _real = n1 + n2;     /*for erros*/
+    _real = n1 + n2;     /*for errors*/
     _imaginary = d1 + d2;
     __r_num = n1;
     __r_den = d1;
@@ -26,9 +26,9 @@ Complex::Complex(int n1, int d1, int n2, int d2){
     __fraction_form = true;
 }
 
-Complex::Complex(int a, int b){
-    _real = a;
-    _imaginary = b;
+Complex::Complex(int real, int imaginary){
+    _real = real;
+    _imaginary = imaginary;
     __i_sign = (_imaginary < 0) ? '\0' : '+';
     __fraction_form = false;
 }
@@ -84,6 +84,14 @@ Complex Complex::operator*(const Complex &complex) const{
     return Complex(factor1, factor2);
 }
 
+Complex operator*(int number, const Complex &complex){
+    return Complex(number * complex._real, number * complex._imaginary);
+}
+
+Complex Complex::mult_by_i(){
+    return Complex(_imaginary * -1, _real);
+}
+
 Complex Complex::operator/(const Complex &complex) const{
     Complex complex_conjugate = complex.conjugate();
     int r_num = ((_real * complex_conjugate._real) - (_imaginary * complex_conjugate._imaginary));
@@ -97,12 +105,13 @@ Complex Complex::operator/(const Complex &complex) const{
 std::ostream& operator<<(std::ostream& out, const Complex &complex){
     if (complex.__fraction_form){
         if (complex._real != 0 && complex._imaginary != 0){
-            out << complex.__r_num << "/" << complex.__r_den << complex.__i_sign_num << complex.__i_num << "/" << complex.__i_den << j;
+            out << complex.__r_num << "/" << complex.__r_den << complex.__i_sign_num << complex.__i_num << "/" << complex.__i_den << 'i';
         }else{
             out << "";
         }
     }else{
-        out << complex._real << complex.__i_sign << complex._imaginary << j;
+        
+        out << complex._real << complex.__i_sign << complex._imaginary << 'i';
     }
 
     return out;
