@@ -3,12 +3,10 @@
 
 #include <iostream>
 
-#define j 'j'
-
-class Complex{
+class Complex{//A Complex class for operations with numbers.
     private:
         char __i_sign;
-        Complex(int r_num, int r_den, int i_num, int i_den); // Only for complex division.
+        Complex(int r_num, int r_den, int i_num, int i_den); // For complex division only.
         int __r_num, __r_den, __i_num, __i_den;
         bool __fraction_form;
         char __i_sign_num;
@@ -23,6 +21,8 @@ class Complex{
         Complex operator-(const Complex &complex) const; // Subtract two complex numbers.
         Complex operator-() const; // Same as the opposite method.
         Complex operator*(const Complex &complex) const;
+        friend Complex operator*(int number, const Complex &complex);
+        Complex mult_by_i();// Multiply this complex number by the constant i.
         Complex operator/(const Complex &complex) const;
         bool operator==(const Complex &complex) const;
         bool operator!=(const Complex &complex) const;
